@@ -1,5 +1,9 @@
-// 1. Tạo toàn bộ HTML
-document.body.innerHTML = `
+// Lưu nội dung gốc để khôi phục sau hiệu ứng
+const originalContent = document.body.innerHTML;
+
+// Tạo hiệu ứng hoa nở
+const container = document.createElement('div');
+container.innerHTML = `
   <style>
     * { box-sizing: border-box; }
     body {
@@ -100,20 +104,26 @@ document.body.innerHTML = `
           <div class="petal two"></div>
           <div class="petal three"></div>
           <div class="petal four"></div>
-        </div>`).join('')}
+        </div>
+      `).join('')}
     </div>
   </button>
 `;
 
-// 2. Hiệu ứng nở hoa + biến mất
+document.body.innerHTML = '';
+document.body.appendChild(container);
+
 const btn = document.getElementById("btn");
 
-// Nở sau 0.1s
 setTimeout(() => {
   btn.classList.add("grow");
 }, 100);
 
-// Biến mất sau 5s
 setTimeout(() => {
   btn.classList.add("hide");
 }, 5100);
+
+// Khôi phục lại nội dung ban đầu sau 6.5s
+setTimeout(() => {
+  document.body.innerHTML = originalContent;
+}, 6500);
